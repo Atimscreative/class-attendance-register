@@ -14,7 +14,7 @@ import { RouterLink } from "@/shared/components/ui/router-link";
 import zod from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Toaster, toaster } from "@/components/ui/toaster";
+import {  toaster } from "@/components/ui/toaster";
 
 const registerSchema = zod.object({
   displayName: zod.string().min(1, "Enter your name"),

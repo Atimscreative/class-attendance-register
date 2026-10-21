@@ -17,7 +17,7 @@ import { toaster } from "@/components/ui/toaster";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { login, error, isLoading, user } = useAuth();
+  const { login, error, isLoading } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +35,7 @@ export default function LoginPage() {
       });
     }
   };
-  
+
   return (
     <AuthPanel
       title="Welcome back"
