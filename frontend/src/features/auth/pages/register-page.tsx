@@ -14,13 +14,12 @@ import { RouterLink } from "@/shared/components/ui/router-link";
 import zod from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Toaster, toaster } from "@/components/ui/toaster";
 
 const registerSchema = zod.object({
   displayName: zod.string().min(1, "Enter your name"),
   email: zod.string().email("Invalid email address"),
-  password: zod
-    .string()
-    .min(10, "Password must be at least 10 characters long"),
+  password: zod.string().min(10, "Use at least 10 characters"),
 });
 
 type RegisterFormData = zod.infer<typeof registerSchema>;
@@ -41,6 +40,9 @@ export default function RegisterPage() {
     const result = await register(data.email, data.password, data.displayName);
     if (result.success) {
       navigate(Path.Home, { replace: true });
+      toaster.success({
+        title: `Signed in as ${result.user?.displayName}`,
+      });
     }
   };
 

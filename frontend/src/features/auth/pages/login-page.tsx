@@ -12,11 +12,12 @@ import { useAuth } from "../hooks/use-auth";
 import { AuthPanel } from "../components/auth-panel";
 import { Path } from "@/router/paths";
 import { RouterLink } from "@/shared/components/ui/router-link";
+import { toaster } from "@/components/ui/toaster";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { login, error, isLoading, isAuthenticated, user } = useAuth();
+  const { login, error, isLoading, user } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,16 +28,19 @@ export default function LoginPage() {
     e.preventDefault();
     const result = await login(email, password);
     if (result.success) {
+      console.log("Login successful:", result);
       navigate(redirectTo, { replace: true });
+      toaster.success({
+        title: `Signed in as ${result.user?.displayName}`,
+      });
     }
   };
-
+  
   return (
     <AuthPanel
       title="Welcome back"
       description="Enter your credentials to access your account."
       error={error?.message}
-      notice={isAuthenticated ? `Signed in as ${user?.displayName}` : undefined}
       footer={
         <Text>
           Don't have an account?{" "}

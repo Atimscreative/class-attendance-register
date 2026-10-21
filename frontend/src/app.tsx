@@ -12,6 +12,7 @@ import { Provider } from "@/shared/components/ui/provider";
 import { queryClient } from "@/api/query-client";
 import { AuthProvider } from "@/features/auth/components/auth-provider";
 import { router } from "@/router";
+import { Toaster } from "@/components/ui/toaster";
 
 // Initialize API client (registers interceptors)
 import "@/api/client";
@@ -20,6 +21,7 @@ export function App() {
   return (
     <Provider>
       <QueryClientProvider client={queryClient}>
+        <Toaster />
         <AuthProvider>
           <RouterProvider router={router} />
         </AuthProvider>
