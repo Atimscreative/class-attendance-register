@@ -1,23 +1,35 @@
-import { Link } from 'react-router-dom'
-import { Badge, Button, Heading, Stack, Text } from '@chakra-ui/react'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
-import { useAuth } from '@/features/auth/hooks/use-auth'
-import { Path } from '@/router/paths'
-import { API_DOCS_URL } from '@/shared/utils/api-url'
-import { SITE } from '@/shared/utils/site-config'
+import { Link } from "react-router-dom";
+import { Badge, Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useAuth } from "@/features/auth/hooks/use-auth";
+import { Path } from "@/router/paths";
+import { API_DOCS_URL } from "@/shared/utils/api-url";
+import { SITE } from "@/shared/utils/site-config";
 
 export function Hero() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user } = useAuth();
 
   return (
-    <Stack gap="6" align="center" textAlign="center" pt={{ base: '12', md: '20' }} pb="4">
+    <Stack
+      gap="6"
+      align="center"
+      textAlign="center"
+      pt={{ base: "12", md: "20" }}
+      pb="4"
+    >
+      {isAuthenticated && (
+        <Badge variant="outline" size="lg" px="3" color="fg.muted">
+          Signed in as {user?.displayName}
+        </Badge>
+      )}
+
       <Badge variant="outline" size="lg" px="3" color="fg.muted">
         Your app is ready
       </Badge>
 
       <Heading
         as="h1"
-        fontSize={{ base: '5xl', md: '7xl' }}
+        fontSize={{ base: "5xl", md: "7xl" }}
         fontWeight="semibold"
         letterSpacing="display"
         lineHeight="1"
@@ -25,14 +37,15 @@ export function Hero() {
         {SITE.name}
       </Heading>
 
-      <Text fontSize={{ base: 'lg', md: 'xl' }} color="fg.muted" maxW="xl">
-        A full-stack foundation with auth, a typed API client, and a design system — ready for your first feature.
+      <Text fontSize={{ base: "lg", md: "xl" }} color="fg.muted" maxW="xl">
+        A full-stack foundation with auth, a typed API client, and a design
+        system — ready for your first feature.
       </Text>
 
-      <Stack direction={{ base: 'column', sm: 'row' }} gap="3" pt="2">
+      <Stack direction={{ base: "column", sm: "row" }} gap="3" pt="2">
         <Button asChild size="lg" px="6">
           <Link to={isAuthenticated ? Path.Dashboard : Path.Login}>
-            {isAuthenticated ? 'Open dashboard' : 'Get started'}
+            {isAuthenticated ? "Open dashboard" : "Get started"}
             <ArrowRight />
           </Link>
         </Button>
@@ -44,5 +57,5 @@ export function Hero() {
         </Button>
       </Stack>
     </Stack>
-  )
+  );
 }
